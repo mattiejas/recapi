@@ -9,6 +9,21 @@ const prisma = new PrismaClient()
 
 app.use(bodyParser())
 
+// exception handling middleware
+app.use(async (ctx, next) => {
+  try {
+    await next()
+  } catch (err: any) {
+    ctx.status = 400
+    ctx.body = {
+      status: 400,
+      message: err.message,
+    }
+    console.log('Error handler:', err.message)
+  }
+})
+
+// hello world endpoint
 router.get('/', async (ctx) => {
   ctx.body = { hello: 'world' }
 })
