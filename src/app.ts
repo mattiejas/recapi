@@ -1,3 +1,9 @@
 import Koa from 'koa'
+import bodyParser from 'koa-bodyparser'
+import { exceptions } from './middleware'
 
-export const app = new Koa()
+const app = new Koa()
+app.use(bodyParser())
+app.use(exceptions())
+
+export { app }
