@@ -2,26 +2,13 @@ import Koa from 'koa'
 import Router from 'koa-router'
 import { PrismaClient } from '@prisma/client'
 import bodyParser from 'koa-bodyparser'
+import { exceptions } from './middleware/exceptions'
 
 const app = new Koa()
 const router = new Router()
 const prisma = new PrismaClient()
 
-app.use(bodyParser())
-
-// exception handling middleware
-app.use(async (ctx, next) => {
-  try {
-    await next()
-  } catch (err: any) {
-    ctx.status = 400
-    ctx.body = {
-      status: 400,
-      message: err.message,
-    }
-    console.log('Error handler:', err.message)
-  }
-})
+app.use(bodyParser()).use(exceptions())
 
 // hello world endpoint
 router.get('/', async (ctx) => {
