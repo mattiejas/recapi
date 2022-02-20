@@ -1,16 +1,18 @@
-import Koa from 'koa'
+import 'reflect-metadata'
+import './controllers'
+
 import bodyParser from 'koa-bodyparser'
 import { exceptions } from './middleware/exceptions'
-import getHelloWorldRouter from './routes/hello-world'
 import getRecipesRouter from './routes/recipes'
-
-const app = new Koa()
+import { app } from './app'
+import { env } from 'process'
 
 app.use(bodyParser())
 app.use(exceptions())
-app.use(getHelloWorldRouter())
 app.use(getRecipesRouter())
 
-const port = 3000
+const port = env.PORT || 3000
 app.listen(port)
-console.info(`Server running on port ${port}`)
+
+console.info(`Server running on port ${port}.`)
+console.info('Press Ctrl+C to quit.')
