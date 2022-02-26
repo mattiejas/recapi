@@ -1,21 +1,25 @@
 import { PrismaClient } from '@prisma/client'
 import { IRouterContext } from 'koa-router'
+import { Inject, Service } from 'typedi'
 import { Method, Route, Controller } from '../decorations'
-
-const prisma = new PrismaClient()
+import { PRISMA_CLIENT } from '../app'
 
 @Controller('/recipes')
+@Service()
 export default class RecipesController {
+  constructor(@Inject(PRISMA_CLIENT) private readonly prisma: PrismaClient) {}
+
   @Route(Method.GET)
   async getRecipes(context: IRouterContext) {
-    const recipes = await prisma.recipe.findMany()
+    console.log(this, this.prisma)
+    const recipes = await this.prisma.recipe.findMany()
     context.body = recipes
   }
 
   @Route(Method.POST)
   async createRecipe(context: IRouterContext) {
     const { title } = context.request.body
-    const recipe = await prisma.recipe.create({
+    const recipe = await this.prisma.recipe.create({
       data: {
         title,
       },

@@ -1,4 +1,5 @@
 import Router from 'koa-router'
+import Container from 'typedi'
 import { Method } from '.'
 import { app } from '../app'
 import { removeLeadingAndTrailingSlashes } from '../utils'
@@ -9,6 +10,7 @@ export function Controller(path = '') {
   return function _Controller<T extends { new (...args: any[]): any }>(
     constr: T
   ) {
+    const instance = Container.get(constr)
     const router = new Router()
     const base = removeLeadingAndTrailingSlashes(path)
     for (const key of Object.getOwnPropertyNames(constr.prototype)) {
@@ -24,8 +26,14 @@ export function Controller(path = '') {
         const m = method.toLowerCase() as Methods
 
         // register with and without trailing slash
-        router[m](`/${base}/${path}`, async (ctx) => await routeHandler(ctx))
-        router[m](`/${base}/${path}/`, async (ctx) => await routeHandler(ctx))
+        router[m](
+          `/${base}/${path}`,
+          async (ctx) => await routeHandler.bind(instance)(ctx)
+        )
+        router[m](
+          `/${base}/${path}/`,
+          async (ctx) => await routeHandler.bind(instance)(ctx)
+        )
       }
     }
     app.use(router.routes())
