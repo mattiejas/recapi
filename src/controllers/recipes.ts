@@ -11,7 +11,6 @@ export default class RecipesController {
 
   @Route(Method.GET)
   async getRecipes(context: IRouterContext) {
-    console.log(this, this.prisma)
     const recipes = await this.prisma.recipe.findMany()
     context.body = recipes
   }
