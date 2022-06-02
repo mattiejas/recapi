@@ -1,20 +1,20 @@
 using System.Text;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Http;
-using Northwind.Infrastructure;
-using Northwind.Persistence;
-using Northwind.Application;
-using Northwind.Application.Common.Interfaces;
-using Northwind.WebUI.Common;
-using Northwind.WebUI.Services;
+using Recapi.Application;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Infrastructure;
+using Recapi.Persistence;
+using Recapi.WebUI.Common;
+using Recapi.WebUI.Services;
 
-namespace Northwind.WebUI
+namespace Recapi.WebUI
 {
     public class Startup
     {
@@ -37,7 +37,7 @@ namespace Northwind.WebUI
             services.AddApplication();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<NorthwindDbContext>();
+                .AddDbContextCheck<RecapiDbContext>();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 
@@ -46,7 +46,7 @@ namespace Northwind.WebUI
             services
                 .AddControllersWithViews()
                 .AddNewtonsoftJson()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<INorthwindDbContext>());
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IRecapiDbContext>());
 
             services.AddRazorPages();
 
@@ -64,7 +64,7 @@ namespace Northwind.WebUI
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "Northwind Traders API";
+                configure.Title = "Recapi Traders API";
             });
 
             _services = services;

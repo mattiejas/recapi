@@ -4,12 +4,12 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 
-namespace Northwind.Persistence
+namespace Recapi.Persistence
 {
     public abstract class DesignTimeDbContextFactoryBase<TContext> :
         IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
-        private const string ConnectionStringName = "NorthwindDatabase";
+        private const string ConnectionStringName = "RecapiDatabase";
         private const string AspNetCoreEnvironment = "ASPNETCORE_ENVIRONMENT";
 
         public TContext CreateDbContext(string[] args)

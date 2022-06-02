@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Northwind.Application.Employees.Commands.DeleteEmployee;
-using Northwind.Application.Employees.Commands.UpsertEmployee;
-using Northwind.Application.Employees.Queries.GetEmployeeDetail;
-using Northwind.Application.Employees.Queries.GetEmployeesList;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Recapi.Application.Employees.Commands.DeleteEmployee;
+using Recapi.Application.Employees.Commands.UpsertEmployee;
+using Recapi.Application.Employees.Queries.GetEmployeeDetail;
+using Recapi.Application.Employees.Queries.GetEmployeesList;
 
-namespace Northwind.WebUI.Controllers
+namespace Recapi.WebUI.Controllers
 {
     public class EmployeesController : BaseController
     {
@@ -31,7 +32,7 @@ namespace Northwind.WebUI.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Upsert(UpsertEmployeeCommand command)
         {
-            var id = await Mediator.Send(command);
+            var id = await Mediator.Send<int>(command);
 
             return Ok(id);
         }
@@ -41,7 +42,7 @@ namespace Northwind.WebUI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
-            await Mediator.Send(new DeleteEmployeeCommand { Id = id });
+            await Mediator.Send<Unit>(new DeleteEmployeeCommand { Id = id });
 
             return NoContent();
         }

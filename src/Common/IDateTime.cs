@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Northwind.Common
+namespace Recapi.Common
 {
     public interface IDateTime
     {

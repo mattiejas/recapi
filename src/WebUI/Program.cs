@@ -1,21 +1,20 @@
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Northwind.Persistence;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Application.System.Commands.SeedSampleData;
-using Northwind.Infrastructure.Identity;
+using Microsoft.Extensions.Logging;
+using Recapi.Application.System.Commands.SeedSampleData;
+using Recapi.Infrastructure.Identity;
+using Recapi.Persistence;
 
-namespace Northwind.WebUI
+namespace Recapi.WebUI
 {
     public class Program
     {
@@ -29,8 +28,8 @@ namespace Northwind.WebUI
 
                 try
                 {
-                    var northwindContext = services.GetRequiredService<NorthwindDbContext>();
-                    northwindContext.Database.Migrate();
+                    var RecapiContext = services.GetRequiredService<RecapiDbContext>();
+                    RecapiContext.Database.Migrate();
 
                     var identityContext = services.GetRequiredService<ApplicationDbContext>();
                     identityContext.Database.Migrate();

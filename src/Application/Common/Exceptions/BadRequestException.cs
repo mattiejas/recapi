@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Northwind.Application.Common.Exceptions
+namespace Recapi.Application.Common.Exceptions
 {
     public class BadRequestException : Exception
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Application.Common.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Application.Common.Models;
 
-namespace Northwind.Infrastructure.Identity
+namespace Recapi.Infrastructure.Identity
 {
     public class UserManagerService : IUserManager
     {

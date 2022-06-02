@@ -1,41 +1,40 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Employees.Queries.GetEmployeesList
+namespace Recapi.Application.Employees.Queries.GetEmployeesList;
+
+public class GetEmployeesListQuery : IRequest<EmployeesListVm>
 {
-    public class GetEmployeesListQuery : IRequest<EmployeesListVm>
+    public class GetEmployeesListQueryHandler : IRequestHandler<GetEmployeesListQuery, EmployeesListVm>
     {
-        public class GetEmployeesListQueryHandler : IRequestHandler<GetEmployeesListQuery, EmployeesListVm>
+        private readonly IRecapiDbContext _context;
+        private readonly IMapper _mapper;
+
+        public GetEmployeesListQueryHandler(IRecapiDbContext context, IMapper mapper)
         {
-            private readonly INorthwindDbContext _context;
-            private readonly IMapper _mapper;
+            _context = context;
+            _mapper = mapper;
+        }
 
-            public GetEmployeesListQueryHandler(INorthwindDbContext context, IMapper mapper)
+        public async Task<EmployeesListVm> Handle(GetEmployeesListQuery request, CancellationToken cancellationToken)
+        {
+            var employees = await _context.Employees
+                .ProjectTo<EmployeeLookupDto>(_mapper.ConfigurationProvider)
+                .OrderBy(e => e.Name)
+                .ToListAsync(cancellationToken);
+
+            var vm = new EmployeesListVm
             {
-                _context = context;
-                _mapper = mapper;
-            }
-
-            public async Task<EmployeesListVm> Handle(GetEmployeesListQuery request, CancellationToken cancellationToken)
-            {
-                var employees = await _context.Employees
-                    .ProjectTo<EmployeeLookupDto>(_mapper.ConfigurationProvider)
-                    .OrderBy(e => e.Name)
-                    .ToListAsync(cancellationToken);
-
-                var vm = new EmployeesListVm
-                {
-                    Employees = employees
-                };
+                Employees = employees
+            };
                  
-                return vm;
-            }
+            return vm;
         }
     }
 }

@@ -1,18 +1,18 @@
-﻿using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
-using System.Linq;
+﻿using System.Linq;
+using MediatR;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Customers.Commands.DeleteCustomer
+namespace Recapi.Application.Customers.Commands.DeleteCustomer
 {
     public class DeleteCustomerCommandHandler : IRequestHandler<DeleteCustomerCommand>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
 
-        public DeleteCustomerCommandHandler(INorthwindDbContext context)
+        public DeleteCustomerCommandHandler(IRecapiDbContext context)
         {
             _context = context;
         }

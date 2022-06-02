@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Northwind.Infrastructure.Identity.Migrations
+namespace Recapi.Infrastructure.Identity.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

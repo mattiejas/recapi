@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Northwind.Domain.Entities
+namespace Recapi.Domain.Entities
 {
     public class Territory
     {

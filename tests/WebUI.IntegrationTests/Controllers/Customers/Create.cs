@@ -1,10 +1,9 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Northwind.Application.Customers.Commands.CreateCustomer;
-using Northwind.WebUI.IntegrationTests.Common;
+﻿using System.Threading.Tasks;
+using Recapi.Application.Customers.Commands.CreateCustomer;
+using Recapi.WebUI.IntegrationTests.Common;
 using Xunit;
 
-namespace Northwind.WebUI.IntegrationTests.Controllers.Customers
+namespace Recapi.WebUI.IntegrationTests.Controllers.Customers
 {
     public class Create : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

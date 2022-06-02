@@ -1,6 +1,6 @@
-﻿using Northwind.Domain.Common;
+﻿using Recapi.Domain.Common;
 
-namespace Northwind.Domain.Entities
+namespace Recapi.Domain.Entities
 {
     public class OrderDetail : AuditableEntity
     {

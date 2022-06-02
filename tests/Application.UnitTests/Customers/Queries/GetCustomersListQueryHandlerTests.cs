@@ -1,18 +1,18 @@
-﻿using AutoMapper;
-using Northwind.Application.Customers.Queries.GetCustomersList;
-using Northwind.Application.UnitTests.Common;
-using Northwind.Persistence;
-using Shouldly;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using Recapi.Application.Customers.Queries.GetCustomersList;
+using Recapi.Application.UnitTests.Common;
+using Recapi.Persistence;
+using Shouldly;
 using Xunit;
 
-namespace NorthwindTraders.Application.UnitTests.Infrastructure
+namespace Recapi.Application.UnitTests.Customers.Queries
 {
     [Collection("QueryCollection")]
     public class GetCustomersListQueryHandlerTests
     {
-        private readonly NorthwindDbContext _context;
+        private readonly RecapiDbContext _context;
         private readonly IMapper _mapper;
 
         public GetCustomersListQueryHandlerTests(QueryTestFixture fixture)
@@ -28,9 +28,9 @@ namespace NorthwindTraders.Application.UnitTests.Infrastructure
 
             var result = await sut.Handle(new GetCustomersListQuery(), CancellationToken.None);
 
-            result.ShouldBeOfType<CustomersListVm>();
+            ShouldBeTestExtensions.ShouldBeOfType<CustomersListVm>(result);
 
-            result.Customers.Count.ShouldBe(3);
+            ShouldBeTestExtensions.ShouldBe(result.Customers.Count, 3);
         }
     }
 }

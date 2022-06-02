@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using Northwind.Application.Products.Queries.GetProductsList;
-using Northwind.WebUI.IntegrationTests.Common;
+using Recapi.Application.Products.Queries.GetProductsList;
+using Recapi.WebUI.IntegrationTests.Common;
 using Xunit;
 
-namespace Northwind.WebUI.IntegrationTests.Controllers.Products
+namespace Recapi.WebUI.IntegrationTests.Controllers.Products
 {
     public class GetAll : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

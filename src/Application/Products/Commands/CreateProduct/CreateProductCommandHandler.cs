@@ -1,16 +1,16 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Domain.Entities;
 
-namespace Northwind.Application.Products.Commands.CreateProduct
+namespace Recapi.Application.Products.Commands.CreateProduct
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
 
-        public CreateProductCommandHandler(INorthwindDbContext context)
+        public CreateProductCommandHandler(IRecapiDbContext context)
         {
             _context = context;
         }

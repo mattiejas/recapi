@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration;
-using Northwind.Application.Products.Queries.GetProductsFile;
+using Recapi.Application.Products.Queries.GetProductsFile;
 
-namespace Northwind.Infrastructure.Files
+namespace Recapi.Infrastructure.Files
 {
     public sealed class ProductFileRecordMap : ClassMap<ProductRecordDto>
     {

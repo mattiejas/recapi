@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
-using Northwind.Application.Categories.Queries.GetCategoriesList;
-using Northwind.Application.Customers.Queries.GetCustomerDetail;
-using Northwind.Application.Customers.Queries.GetCustomersList;
-using Northwind.Application.Employees.Queries.GetEmployeeDetail;
-using Northwind.Application.Employees.Queries.GetEmployeesList;
-using Northwind.Application.Products.Queries.GetProductDetail;
-using Northwind.Application.Products.Queries.GetProductsFile;
-using Northwind.Application.Products.Queries.GetProductsList;
-using Northwind.Domain.Entities;
+using Recapi.Application.Categories.Queries.GetCategoriesList;
+using Recapi.Application.Customers.Queries.GetCustomerDetail;
+using Recapi.Application.Customers.Queries.GetCustomersList;
+using Recapi.Application.Employees.Queries.GetEmployeeDetail;
+using Recapi.Application.Employees.Queries.GetEmployeesList;
+using Recapi.Application.Products.Queries.GetProductDetail;
+using Recapi.Application.Products.Queries.GetProductsFile;
+using Recapi.Application.Products.Queries.GetProductsList;
+using Recapi.Domain.Entities;
 using Shouldly;
 using Xunit;
 
-namespace Northwind.Application.UnitTests.Mappings
+namespace Recapi.Application.UnitTests.Mappings
 {
     public class MappingTests : IClassFixture<MappingTestsFixture>
     {
@@ -37,8 +37,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<CategoryDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<CategoryDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<CategoryDto>(result);
         }
 
         [Fact]
@@ -48,8 +48,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<CustomerLookupDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<CustomerLookupDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<CustomerLookupDto>(result);
         }
 
         [Fact]
@@ -59,8 +59,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<ProductDetailVm>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<ProductDetailVm>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<ProductDetailVm>(result);
         }
 
         [Fact]
@@ -70,8 +70,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<ProductDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<ProductDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<ProductDto>(result);
         }
 
         [Fact]
@@ -81,8 +81,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<ProductRecordDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<ProductRecordDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<ProductRecordDto>(result);
         }
 
         [Fact]
@@ -92,8 +92,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<CustomerDetailVm>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<CustomerDetailVm>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<CustomerDetailVm>(result);
         }
 
         [Fact]
@@ -103,8 +103,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<EmployeeLookupDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<EmployeeLookupDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<EmployeeLookupDto>(result);
         }
 
         [Fact]
@@ -114,8 +114,8 @@ namespace Northwind.Application.UnitTests.Mappings
 
             var result = _mapper.Map<EmployeeTerritoryDto>(entity);
 
-            result.ShouldNotBeNull();
-            result.ShouldBeOfType<EmployeeTerritoryDto>();
+            ShouldBeNullExtensions.ShouldNotBeNull(result);
+            ShouldBeTestExtensions.ShouldBeOfType<EmployeeTerritoryDto>(result);
         }
     }
 }

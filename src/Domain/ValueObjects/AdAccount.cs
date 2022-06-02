@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Northwind.Domain.Exceptions;
-using Northwind.Domain.Common;
+using Recapi.Domain.Exceptions;
+using Recapi.Domain.Common;
 
-namespace Northwind.Domain.ValueObjects
+namespace Recapi.Domain.ValueObjects
 {
     public class AdAccount : ValueObject
     {

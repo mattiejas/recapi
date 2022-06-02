@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Northwind.Application.Common.Mappings;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
+using Recapi.Application.Common.Mappings;
 
-namespace Northwind.Application.Customers.Queries.GetCustomersList
+namespace Recapi.Application.Customers.Queries.GetCustomersList
 {
     public class CustomerLookupDto : IMapFrom<Customer>
     {

@@ -2,17 +2,17 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Domain.Entities;
 
-namespace Northwind.Application.Products.Commands.DeleteProduct
+namespace Recapi.Application.Products.Commands.DeleteProduct
 {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
 
-        public DeleteProductCommandHandler(INorthwindDbContext context)
+        public DeleteProductCommandHandler(IRecapiDbContext context)
         {
             _context = context;
         }

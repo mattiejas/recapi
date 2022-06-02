@@ -1,11 +1,10 @@
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Northwind.Application.Customers.Queries.GetCustomerDetail;
-using Northwind.WebUI.IntegrationTests.Common;
+using Recapi.Application.Customers.Queries.GetCustomerDetail;
+using Recapi.WebUI.IntegrationTests.Common;
 using Xunit;
 
-namespace Northwind.WebUI.IntegrationTests.Controllers.Customers
+namespace Recapi.WebUI.IntegrationTests.Controllers.Customers
 {
     public class GetById : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
@@ -29,7 +28,7 @@ namespace Northwind.WebUI.IntegrationTests.Controllers.Customers
 
             var customer = await Utilities.GetResponseContent<CustomerDetailVm>(response);
 
-            Assert.Equal(id, customer.Id);
+            Assert.Equal(id, (string) customer.Id);
         }
 
         [Fact]

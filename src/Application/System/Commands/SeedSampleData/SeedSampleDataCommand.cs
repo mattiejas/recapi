@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Persistence;
+using Recapi.Persistence;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.System.Commands.SeedSampleData
+namespace Recapi.Application.System.Commands.SeedSampleData
 {
     public class SeedSampleDataCommand : IRequest
     {
@@ -12,10 +12,10 @@ namespace Northwind.Application.System.Commands.SeedSampleData
 
     public class SeedSampleDataCommandHandler : IRequestHandler<SeedSampleDataCommand>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
         private readonly IUserManager _userManager;
 
-        public SeedSampleDataCommandHandler(INorthwindDbContext context, IUserManager userManager)
+        public SeedSampleDataCommandHandler(IRecapiDbContext context, IUserManager userManager)
         {
             _context = context;
             _userManager = userManager;

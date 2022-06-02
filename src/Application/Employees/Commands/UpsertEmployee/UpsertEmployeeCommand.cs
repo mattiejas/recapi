@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Employees.Commands.UpsertEmployee
+namespace Recapi.Application.Employees.Commands.UpsertEmployee
 {
     public class UpsertEmployeeCommand : IRequest<int>
     {
@@ -45,9 +45,9 @@ namespace Northwind.Application.Employees.Commands.UpsertEmployee
 
         public class UpsertEmployeeCommandHandler : IRequestHandler<UpsertEmployeeCommand, int>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
 
-            public UpsertEmployeeCommandHandler(INorthwindDbContext context)
+            public UpsertEmployeeCommandHandler(IRecapiDbContext context)
             {
                 _context = context;
             }

@@ -1,4 +1,4 @@
-﻿namespace Northwind.Domain.Entities
+﻿namespace Recapi.Domain.Entities
 {
     public class EmployeeTerritory
     {

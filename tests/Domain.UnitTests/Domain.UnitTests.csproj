@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>Northwind.Domain.UnitTests</RootNamespace>
-    <AssemblyName>Northwind.Domain.UnitTests</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Recapi.Domain.UnitTests</RootNamespace>
+    <AssemblyName>Recapi.Domain.UnitTests</AssemblyName>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

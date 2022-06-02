@@ -1,15 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Northwind.Application.Products.Commands.CreateProduct;
-using Northwind.Application.Products.Commands.DeleteProduct;
-using Northwind.Application.Products.Commands.UpdateProduct;
-using Northwind.Application.Products.Queries.GetProductsList;
-using Northwind.Application.Products.Queries.GetProductDetail;
 using Microsoft.AspNetCore.Http;
-using Northwind.Application.Products.Queries.GetProductsFile;
+using Microsoft.AspNetCore.Mvc;
+using Recapi.Application.Products.Commands.CreateProduct;
+using Recapi.Application.Products.Commands.DeleteProduct;
+using Recapi.Application.Products.Commands.UpdateProduct;
+using Recapi.Application.Products.Queries.GetProductDetail;
+using Recapi.Application.Products.Queries.GetProductsFile;
+using Recapi.Application.Products.Queries.GetProductsList;
 
-namespace Northwind.WebUI.Controllers
+namespace Recapi.WebUI.Controllers
 {
     [Authorize]
     public class ProductsController : BaseController

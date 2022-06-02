@@ -1,7 +1,7 @@
-﻿using Northwind.Application.Notifications.Models;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Recapi.Application.Notifications.Models;
 
-namespace Northwind.Application.Common.Interfaces
+namespace Recapi.Application.Common.Interfaces
 {
     public interface INotificationService
     {

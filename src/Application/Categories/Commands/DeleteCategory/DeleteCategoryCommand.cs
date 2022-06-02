@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Categories.Commands.DeleteCategory
+namespace Recapi.Application.Categories.Commands.DeleteCategory
 {
     public class DeleteCategoryCommand : IRequest
     {
@@ -13,9 +13,9 @@ namespace Northwind.Application.Categories.Commands.DeleteCategory
 
         public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
 
-            public DeleteCategoryCommandHandler(INorthwindDbContext context)
+            public DeleteCategoryCommandHandler(IRecapiDbContext context)
             {
                 _context = context;
             }

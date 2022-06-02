@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Northwind.Domain.Exceptions
+namespace Recapi.Domain.Exceptions
 {
     public class AdAccountInvalidException : Exception
     {

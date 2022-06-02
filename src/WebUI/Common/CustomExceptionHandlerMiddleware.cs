@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Northwind.Application.Common.Exceptions;
-using System;
+﻿using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Recapi.Application.Common.Exceptions;
 
-namespace Northwind.WebUI.Common
+namespace Recapi.WebUI.Common
 {
     public class CustomExceptionHandlerMiddleware
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Northwind.Application.Common.Models;
 using System.Linq;
+using Recapi.Application.Common.Models;
 
-namespace Northwind.Infrastructure.Identity
+namespace Recapi.Infrastructure.Identity
 {
     public static class IdentityResultExtensions
     {

@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Northwind.Application.Categories.Commands.DeleteCategory;
-using Northwind.Application.Categories.Commands.UpsertCategory;
-using Northwind.Application.Categories.Queries.GetCategoriesList;
-using System.Threading.Tasks;
+using Recapi.Application.Categories.Commands.DeleteCategory;
+using Recapi.Application.Categories.Commands.UpsertCategory;
+using Recapi.Application.Categories.Queries.GetCategoriesList;
 
-namespace Northwind.WebUI.Controllers
+namespace Recapi.WebUI.Controllers
 {
     [Authorize]
     public class CategoriesController : BaseController

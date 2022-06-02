@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Northwind.Persistence;
+using Recapi.Persistence;
 
-namespace Northwind.Persistence.Migrations
+namespace Recapi.Persistence.Migrations
 {
-    [DbContext(typeof(NorthwindDbContext))]
-    partial class NorthwindContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RecapiDbContext))]
+    partial class RecapiContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace Northwind.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Category", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -43,7 +43,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Customer", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Customer", b =>
                 {
                     b.Property<string>("CustomerId")
                         .HasColumnName("CustomerID")
@@ -96,7 +96,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Employee", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
@@ -191,7 +191,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.EmployeeTerritory", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.EmployeeTerritory", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .HasColumnName("EmployeeID")
@@ -210,7 +210,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("EmployeeTerritories");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Order", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -291,7 +291,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.OrderDetail", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.OrderDetail", b =>
                 {
                     b.Property<int>("OrderId")
                         .HasColumnName("OrderID")
@@ -331,7 +331,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Order Details");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Product", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
@@ -400,7 +400,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Region", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Region", b =>
                 {
                     b.Property<int>("RegionId")
                         .HasColumnName("RegionID")
@@ -417,7 +417,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Region");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Shipper", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Shipper", b =>
                 {
                     b.Property<int>("ShipperId")
                         .ValueGeneratedOnAdd()
@@ -439,7 +439,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Shippers");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Supplier", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
@@ -496,7 +496,7 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Territory", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Territory", b =>
                 {
                     b.Property<string>("TerritoryId")
                         .HasColumnName("TerritoryID")
@@ -520,74 +520,74 @@ namespace Northwind.Persistence.Migrations
                     b.ToTable("Territories");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Employee", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Employee", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Employee", "Manager")
+                    b.HasOne("Recapi.Domain.Entities.Employee", "Manager")
                         .WithMany("DirectReports")
                         .HasForeignKey("ReportsTo")
                         .HasConstraintName("FK_Employees_Employees");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.EmployeeTerritory", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.EmployeeTerritory", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Employee", "Employee")
+                    b.HasOne("Recapi.Domain.Entities.Employee", "Employee")
                         .WithMany("EmployeeTerritories")
                         .HasForeignKey("EmployeeId")
                         .HasConstraintName("FK_EmployeeTerritories_Employees")
                         .IsRequired();
 
-                    b.HasOne("Northwind.Domain.Entities.Territory", "Territory")
+                    b.HasOne("Recapi.Domain.Entities.Territory", "Territory")
                         .WithMany("EmployeeTerritories")
                         .HasForeignKey("TerritoryId")
                         .HasConstraintName("FK_EmployeeTerritories_Territories")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Order", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Order", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Customer", "Customer")
+                    b.HasOne("Recapi.Domain.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId");
 
-                    b.HasOne("Northwind.Domain.Entities.Employee", "Employee")
+                    b.HasOne("Recapi.Domain.Entities.Employee", "Employee")
                         .WithMany("Orders")
                         .HasForeignKey("EmployeeId");
 
-                    b.HasOne("Northwind.Domain.Entities.Shipper", "Shipper")
+                    b.HasOne("Recapi.Domain.Entities.Shipper", "Shipper")
                         .WithMany("Orders")
                         .HasForeignKey("ShipVia")
                         .HasConstraintName("FK_Orders_Shippers");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.OrderDetail", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.OrderDetail", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Order", "Order")
+                    b.HasOne("Recapi.Domain.Entities.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .HasConstraintName("FK_Order_Details_Orders")
                         .IsRequired();
 
-                    b.HasOne("Northwind.Domain.Entities.Product", "Product")
+                    b.HasOne("Recapi.Domain.Entities.Product", "Product")
                         .WithMany("OrderDetails")
                         .HasForeignKey("ProductId")
                         .HasConstraintName("FK_Order_Details_Products")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Product", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Category", "Category")
+                    b.HasOne("Recapi.Domain.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("Northwind.Domain.Entities.Supplier", "Supplier")
+                    b.HasOne("Recapi.Domain.Entities.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId");
                 });
 
-            modelBuilder.Entity("Northwind.Domain.Entities.Territory", b =>
+            modelBuilder.Entity("Recapi.Domain.Entities.Territory", b =>
                 {
-                    b.HasOne("Northwind.Domain.Entities.Region", "Region")
+                    b.HasOne("Recapi.Domain.Entities.Region", "Region")
                         .WithMany("Territories")
                         .HasForeignKey("RegionId")
                         .HasConstraintName("FK_Territories_Region")

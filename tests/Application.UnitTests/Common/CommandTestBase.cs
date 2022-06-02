@@ -1,20 +1,20 @@
 using System;
-using Northwind.Persistence;
+using Recapi.Persistence;
 
-namespace Northwind.Application.UnitTests.Common
+namespace Recapi.Application.UnitTests.Common
 {
     public class CommandTestBase : IDisposable
     {
-        protected readonly NorthwindDbContext _context;
+        protected readonly RecapiDbContext _context;
 
         public CommandTestBase()
         {
-            _context = NorthwindContextFactory.Create();
+            _context = RecapiContextFactory.Create();
         }
 
         public void Dispose()
         {
-            NorthwindContextFactory.Destroy(_context);
+            RecapiContextFactory.Destroy(_context);
         }
     }
 }

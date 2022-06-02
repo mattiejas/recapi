@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+﻿using Recapi.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Persistence
+namespace Recapi.Persistence
 {
     public class SampleDataSeeder
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
         private readonly IUserManager _userManager;
 
         private readonly Dictionary<int, Employee> Employees = new Dictionary<int, Employee>();
@@ -20,7 +20,7 @@ namespace Northwind.Persistence
         private readonly Dictionary<int, Shipper> Shippers = new Dictionary<int, Shipper>();
         private readonly Dictionary<int, Product> Products = new Dictionary<int, Product>();
 
-        public SampleDataSeeder(INorthwindDbContext context, IUserManager userManager)
+        public SampleDataSeeder(IRecapiDbContext context, IUserManager userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -65,8 +65,8 @@ namespace Northwind.Persistence
             {
                 foreach (var employee in employees)
                 {
-                    var userName = $"{employee.FirstName}@northwind".ToLower();
-                    var result = await _userManager.CreateUserAsync(userName, "Northwind1!");
+                    var userName = $"{employee.FirstName}@Recapi".ToLower();
+                    var result = await _userManager.CreateUserAsync(userName, "Recapi1!");
                     employee.UserId = result.UserId;
 
                     if (employee.DirectReports.Any())

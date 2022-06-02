@@ -1,9 +1,9 @@
-﻿using Northwind.Application.Products.Commands.CreateProduct;
-using Northwind.WebUI.IntegrationTests.Common;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Recapi.Application.Products.Commands.CreateProduct;
+using Recapi.WebUI.IntegrationTests.Common;
 using Xunit;
 
-namespace Northwind.WebUI.IntegrationTests.Controllers.Products
+namespace Recapi.WebUI.IntegrationTests.Controllers.Products
 {
     public class Create : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

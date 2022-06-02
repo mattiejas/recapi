@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
 using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Customers.Queries.GetCustomerDetail
+namespace Recapi.Application.Customers.Queries.GetCustomerDetail
 {
     public class GetCustomerDetailQueryHandler : IRequestHandler<GetCustomerDetailQuery, CustomerDetailVm>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetCustomerDetailQueryHandler(INorthwindDbContext context, IMapper mapper)
+        public GetCustomerDetailQueryHandler(IRecapiDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

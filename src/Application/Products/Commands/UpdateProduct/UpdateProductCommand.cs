@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Northwind.Application.Products.Commands.UpdateProduct
+namespace Recapi.Application.Products.Commands.UpdateProduct
 {
     public class UpdateProductCommand : IRequest
     {

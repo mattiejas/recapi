@@ -1,11 +1,10 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Northwind.Application.Customers.Commands.UpdateCustomer;
-using Northwind.WebUI.IntegrationTests.Common;
+using Recapi.Application.Customers.Commands.UpdateCustomer;
+using Recapi.WebUI.IntegrationTests.Common;
 using Xunit;
 
-namespace Northwind.WebUI.IntegrationTests.Controllers.Customers
+namespace Recapi.WebUI.IntegrationTests.Controllers.Customers
 {
     public class Update : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

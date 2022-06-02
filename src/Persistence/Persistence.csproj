@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Northwind.Persistence</RootNamespace>
-    <AssemblyName>Northwind.Persistence</AssemblyName>
+    <RootNamespace>Recapi.Persistence</RootNamespace>
+    <AssemblyName>Recapi.Persistence</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <LangVersion>7.1</LangVersion>

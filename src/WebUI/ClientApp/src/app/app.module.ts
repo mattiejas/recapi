@@ -12,7 +12,7 @@ import { NavTopMenuComponent } from './nav-top-menu/nav-top-menu.component';
 import { NavSideMenuComponent } from './nav-side-menu/nav-side-menu.component';
 import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
 
-import { CustomersClient, ProductsClient, API_BASE_URL } from './northwind-traders-api';
+import { CustomersClient, ProductsClient, API_BASE_URL } from './Recapi-traders-api';
 
 import { CamelCaseToText } from '../pipes/camel-case-to-text';
 

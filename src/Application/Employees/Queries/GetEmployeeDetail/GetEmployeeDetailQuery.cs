@@ -1,13 +1,13 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
+﻿using System.Linq;
+using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Employees.Queries.GetEmployeeDetail
+namespace Recapi.Application.Employees.Queries.GetEmployeeDetail
 {
     public class GetEmployeeDetailQuery : IRequest<EmployeeDetailVm>
     {
@@ -15,10 +15,10 @@ namespace Northwind.Application.Employees.Queries.GetEmployeeDetail
 
         public class GetEmployeeDetailQueryHandler : IRequestHandler<GetEmployeeDetailQuery, EmployeeDetailVm>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
             private readonly IMapper _mapper;
 
-            public GetEmployeeDetailQueryHandler(INorthwindDbContext context, IMapper mapper)
+            public GetEmployeeDetailQueryHandler(IRecapiDbContext context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

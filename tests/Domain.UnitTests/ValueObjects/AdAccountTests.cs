@@ -1,8 +1,8 @@
-using Northwind.Domain.Exceptions;
-using Northwind.Domain.ValueObjects;
+using Recapi.Domain.Exceptions;
+using Recapi.Domain.ValueObjects;
 using Xunit;
 
-namespace Northwind.Domain.UnitTests.ValueObjects
+namespace Recapi.Domain.UnitTests.ValueObjects
 {
     public class AdAccountTests
     {

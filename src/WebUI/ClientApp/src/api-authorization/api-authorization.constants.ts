@@ -1,4 +1,4 @@
-export const ApplicationName = 'Northwind.WebUI';
+export const ApplicationName = 'Recapi.WebUI';
 
 export const ReturnUrlType = 'returnUrl';
 

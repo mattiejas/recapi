@@ -1,19 +1,19 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using Northwind.Domain.Entities;
-using Northwind.Persistence;
+using Recapi.Domain.Entities;
+using Recapi.Persistence;
 
-namespace Northwind.Application.UnitTests.Common
+namespace Recapi.Application.UnitTests.Common
 {
-    public class NorthwindContextFactory
+    public class RecapiContextFactory
     {
-        public static NorthwindDbContext Create()
+        public static RecapiDbContext Create()
         {
-            var options = new DbContextOptionsBuilder<NorthwindDbContext>()
+            var options = new DbContextOptionsBuilder<RecapiDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            var context = new NorthwindDbContext(options);
+            var context = new RecapiDbContext(options);
 
             context.Database.EnsureCreated();
 
@@ -33,7 +33,7 @@ namespace Northwind.Application.UnitTests.Common
             return context;
         }
 
-        public static void Destroy(NorthwindDbContext context)
+        public static void Destroy(RecapiDbContext context)
         {
             context.Database.EnsureDeleted();
 

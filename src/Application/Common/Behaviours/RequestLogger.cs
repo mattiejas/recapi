@@ -1,10 +1,10 @@
 ﻿using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
-using Northwind.Application.Common.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Common.Behaviours
+namespace Recapi.Application.Common.Behaviours
 {
     public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
     {
@@ -21,7 +21,7 @@ namespace Northwind.Application.Common.Behaviours
         {
             var name = typeof(TRequest).Name;
 
-            _logger.LogInformation("Northwind Request: {Name} {@UserId} {@Request}", 
+            _logger.LogInformation("Recapi Request: {Name} {@UserId} {@Request}", 
                 name, _currentUserService.UserId, request);
 
             return Task.CompletedTask;

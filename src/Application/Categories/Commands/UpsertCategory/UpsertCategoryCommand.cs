@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Domain.Entities;
 
-namespace Northwind.Application.Categories.Commands.UpsertCategory
+namespace Recapi.Application.Categories.Commands.UpsertCategory
 {
     public class UpsertCategoryCommand : IRequest<int>
     {
@@ -18,9 +18,9 @@ namespace Northwind.Application.Categories.Commands.UpsertCategory
 
         public class UpsertCategoryCommandHandler : IRequestHandler<UpsertCategoryCommand, int>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
 
-            public UpsertCategoryCommandHandler(INorthwindDbContext context)
+            public UpsertCategoryCommandHandler(IRecapiDbContext context)
             {
                 _context = context;
             }

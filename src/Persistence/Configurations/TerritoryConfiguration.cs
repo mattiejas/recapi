@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 
-namespace Northwind.Persistence.Configurations
+namespace Recapi.Persistence.Configurations
 {
     public class TerritoryConfiguration : IEntityTypeConfiguration<Territory>
     {

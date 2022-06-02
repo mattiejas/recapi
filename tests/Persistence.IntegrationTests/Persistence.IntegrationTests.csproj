@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Recapi.Persistence.IntegrationTests</RootNamespace>
+    <AssemblyName>Recapi.Persistence.IntegrationTests</AssemblyName>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Northwind.Infrastructure;
+using Recapi.Infrastructure;
 
-namespace Northwind.Infrastructure.Identity.Migrations
+namespace Recapi.Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20190905003230_CreateIdentitySchema")]
@@ -236,7 +236,7 @@ namespace Northwind.Infrastructure.Identity.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Northwind.WebUI.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Recapi.WebUI.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -312,7 +312,7 @@ namespace Northwind.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Northwind.WebUI.Models.ApplicationUser", null)
+                    b.HasOne("Recapi.WebUI.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -321,7 +321,7 @@ namespace Northwind.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Northwind.WebUI.Models.ApplicationUser", null)
+                    b.HasOne("Recapi.WebUI.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -336,7 +336,7 @@ namespace Northwind.Infrastructure.Identity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Northwind.WebUI.Models.ApplicationUser", null)
+                    b.HasOne("Recapi.WebUI.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -345,7 +345,7 @@ namespace Northwind.Infrastructure.Identity.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Northwind.WebUI.Models.ApplicationUser", null)
+                    b.HasOne("Recapi.WebUI.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

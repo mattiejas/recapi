@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Northwind.Application.Common.Interfaces
+namespace Recapi.Application.Common.Interfaces
 {
-    public interface INorthwindDbContext
+    public interface IRecapiDbContext
     {
         DbSet<Category> Categories { get; set; }
 

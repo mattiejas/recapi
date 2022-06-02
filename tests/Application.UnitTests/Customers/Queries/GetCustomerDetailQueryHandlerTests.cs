@@ -1,18 +1,18 @@
-﻿using Northwind.Application.Customers.Queries.GetCustomerDetail;
-using Northwind.Persistence;
-using Shouldly;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Northwind.Application.UnitTests.Common;
-using Xunit;
 using AutoMapper;
+using Recapi.Application.Customers.Queries.GetCustomerDetail;
+using Recapi.Application.UnitTests.Common;
+using Recapi.Persistence;
+using Shouldly;
+using Xunit;
 
-namespace Northwind.Application.UnitTests.Customers.Queries
+namespace Recapi.Application.UnitTests.Customers.Queries
 {
     [Collection("QueryCollection")]
     public class GetCustomerDetailQueryHandlerTests
     { 
-        private readonly NorthwindDbContext _context;
+        private readonly RecapiDbContext _context;
         private readonly IMapper _mapper;
 
         public GetCustomerDetailQueryHandlerTests(QueryTestFixture fixture)
@@ -28,8 +28,8 @@ namespace Northwind.Application.UnitTests.Customers.Queries
 
             var result = await sut.Handle(new GetCustomerDetailQuery { Id = "JASON" }, CancellationToken.None);
 
-            result.ShouldBeOfType<CustomerDetailVm>();
-            result.Id.ShouldBe("JASON");
+            ShouldBeTestExtensions.ShouldBeOfType<CustomerDetailVm>(result);
+            ShouldBeStringTestExtensions.ShouldBe(result.Id, "JASON");
         }
     }
 }

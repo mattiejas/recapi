@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net.Mime;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Northwind.Domain.Entities;
-using Northwind.Persistence;
+using Newtonsoft.Json;
+using Recapi.Domain.Entities;
+using Recapi.Persistence;
 
-namespace Northwind.WebUI.IntegrationTests.Common
+namespace Recapi.WebUI.IntegrationTests.Common
 {
     public class Utilities
     {
@@ -24,7 +23,7 @@ namespace Northwind.WebUI.IntegrationTests.Common
             return result;
         }
 
-        public static void InitializeDbForTests(NorthwindDbContext context)
+        public static void InitializeDbForTests(RecapiDbContext context)
         {
             context.Customers.Add(new Customer
             {

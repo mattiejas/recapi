@@ -1,25 +1,25 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Common;
-using Northwind.Domain.Entities;
-using Northwind.Domain.Common;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Common;
+using Recapi.Domain.Entities;
+using Recapi.Domain.Common;
 
-namespace Northwind.Persistence
+namespace Recapi.Persistence
 {
-    public class NorthwindDbContext : DbContext, INorthwindDbContext
+    public class RecapiDbContext : DbContext, IRecapiDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
 
-        public NorthwindDbContext(DbContextOptions<NorthwindDbContext> options)
+        public RecapiDbContext(DbContextOptions<RecapiDbContext> options)
             : base(options)
         {
         }
 
-        public NorthwindDbContext(
-            DbContextOptions<NorthwindDbContext> options, 
+        public RecapiDbContext(
+            DbContextOptions<RecapiDbContext> options, 
             ICurrentUserService currentUserService,
             IDateTime dateTime)
             : base(options)
@@ -72,7 +72,7 @@ namespace Northwind.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(NorthwindDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(RecapiDbContext).Assembly);
         }
     }
 }

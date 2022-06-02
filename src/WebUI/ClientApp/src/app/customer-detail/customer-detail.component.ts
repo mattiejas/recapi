@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CustomerDetailVm } from '../northwind-traders-api';
+import { CustomerDetailVm } from '../Recapi-traders-api';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

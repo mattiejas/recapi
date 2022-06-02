@@ -2,24 +2,24 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Common;
-using Northwind.Domain.Entities;
-using Northwind.Persistence;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Common;
+using Recapi.Domain.Entities;
+using Recapi.Persistence;
 using Shouldly;
 using Xunit;
 
-namespace Persistence.IntegrationTests
+namespace Recapi.Persistence.IntegrationTests
 {
-    public class NorthwindDbContextTests : IDisposable
+    public class RecapiDbContextTests : IDisposable
     {
         private readonly string _userId;
         private readonly DateTime _dateTime;
         private readonly Mock<IDateTime> _dateTimeMock;
         private readonly Mock<ICurrentUserService> _currentUserServiceMock;
-        private readonly NorthwindDbContext _sut;
+        private readonly RecapiDbContext _sut;
 
-        public NorthwindDbContextTests()
+        public RecapiDbContextTests()
         {
             _dateTime = new DateTime(3001, 1, 1);
             _dateTimeMock = new Mock<IDateTime>();
@@ -29,11 +29,11 @@ namespace Persistence.IntegrationTests
             _currentUserServiceMock = new Mock<ICurrentUserService>();
             _currentUserServiceMock.Setup(m => m.UserId).Returns(_userId);
 
-            var options = new DbContextOptionsBuilder<NorthwindDbContext>()
+            var options = new DbContextOptionsBuilder<RecapiDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            _sut = new NorthwindDbContext(options, _currentUserServiceMock.Object, _dateTimeMock.Object);
+            _sut = new RecapiDbContext(options, _currentUserServiceMock.Object, _dateTimeMock.Object);
 
             _sut.Products.Add(new Product
             {

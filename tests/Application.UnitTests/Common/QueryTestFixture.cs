@@ -1,19 +1,19 @@
 using System;
 using AutoMapper;
-using Northwind.Application.Common.Mappings;
-using Northwind.Persistence;
+using Recapi.Application.Common.Mappings;
+using Recapi.Persistence;
 using Xunit;
 
-namespace Northwind.Application.UnitTests.Common
+namespace Recapi.Application.UnitTests.Common
 {
     public class QueryTestFixture : IDisposable
     {
-        public NorthwindDbContext Context { get; private set; }
+        public RecapiDbContext Context { get; private set; }
         public IMapper Mapper { get; private set; }
 
         public QueryTestFixture()
         {
-            Context = NorthwindContextFactory.Create();
+            Context = RecapiContextFactory.Create();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -25,7 +25,7 @@ namespace Northwind.Application.UnitTests.Common
 
         public void Dispose()
         {
-            NorthwindContextFactory.Destroy(Context);
+            RecapiContextFactory.Destroy(Context);
         }
     }
 

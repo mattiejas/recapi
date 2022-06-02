@@ -1,14 +1,14 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Northwind.Application.Customers.Commands.CreateCustomer;
-using Northwind.Application.Customers.Commands.DeleteCustomer;
-using Northwind.Application.Customers.Commands.UpdateCustomer;
-using Northwind.Application.Customers.Queries.GetCustomerDetail;
-using Northwind.Application.Customers.Queries.GetCustomersList;
-using System.Threading.Tasks;
+using Recapi.Application.Customers.Commands.CreateCustomer;
+using Recapi.Application.Customers.Commands.DeleteCustomer;
+using Recapi.Application.Customers.Commands.UpdateCustomer;
+using Recapi.Application.Customers.Queries.GetCustomerDetail;
+using Recapi.Application.Customers.Queries.GetCustomersList;
 
-namespace Northwind.WebUI.Controllers
+namespace Recapi.WebUI.Controllers
 {
     [Authorize]
     public class CustomersController : BaseController

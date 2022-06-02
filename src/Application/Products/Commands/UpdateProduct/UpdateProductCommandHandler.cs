@@ -1,17 +1,17 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Domain.Entities;
 
-namespace Northwind.Application.Products.Commands.UpdateProduct
+namespace Recapi.Application.Products.Commands.UpdateProduct
 {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
 
-        public UpdateProductCommandHandler(INorthwindDbContext context)
+        public UpdateProductCommandHandler(IRecapiDbContext context)
         {
             _context = context;
         }

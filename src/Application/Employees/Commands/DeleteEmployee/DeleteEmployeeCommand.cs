@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Employees.Commands.DeleteEmployee
+namespace Recapi.Application.Employees.Commands.DeleteEmployee
 {
     public class DeleteEmployeeCommand : IRequest
     {
@@ -13,11 +13,11 @@ namespace Northwind.Application.Employees.Commands.DeleteEmployee
 
         public class DeleteEmployeeCommandHandler : IRequestHandler<DeleteEmployeeCommand>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
             private readonly IUserManager _userManager;
             private readonly ICurrentUserService _currentUser;
 
-            public DeleteEmployeeCommandHandler(INorthwindDbContext context, IUserManager userManager, ICurrentUserService currentUser)
+            public DeleteEmployeeCommandHandler(IRecapiDbContext context, IUserManager userManager, ICurrentUserService currentUser)
             {
                 _context = context;
                 _userManager = userManager;

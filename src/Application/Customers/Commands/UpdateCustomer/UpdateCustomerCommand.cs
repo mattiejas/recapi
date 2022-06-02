@@ -1,12 +1,12 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Customers.Commands.UpdateCustomer
+namespace Recapi.Application.Customers.Commands.UpdateCustomer
 {
     public class UpdateCustomerCommand : IRequest
     {
@@ -24,9 +24,9 @@ namespace Northwind.Application.Customers.Commands.UpdateCustomer
 
         public class Handler : IRequestHandler<UpdateCustomerCommand>
         {
-            private readonly INorthwindDbContext _context;
+            private readonly IRecapiDbContext _context;
 
-            public Handler(INorthwindDbContext context)
+            public Handler(IRecapiDbContext context)
             {
                 _context = context;
             }

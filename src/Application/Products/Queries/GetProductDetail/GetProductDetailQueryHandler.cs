@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Exceptions;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Domain.Entities;
+using Recapi.Domain.Entities;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Exceptions;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Products.Queries.GetProductDetail
+namespace Recapi.Application.Products.Queries.GetProductDetail
 {
     public class GetProductDetailQueryHandler : MediatR.IRequestHandler<GetProductDetailQuery, ProductDetailVm>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetProductDetailQueryHandler(INorthwindDbContext context, IMapper mapper)
+        public GetProductDetailQueryHandler(IRecapiDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

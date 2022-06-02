@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Northwind.Persistence.Migrations
+namespace Recapi.Persistence.Migrations
 {
     public partial class EmployeeUserIds : Migration
     {

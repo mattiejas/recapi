@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Northwind.WebUI</RootNamespace>
-    <AssemblyName>Northwind.WebUI</AssemblyName>
+    <RootNamespace>Recapi.WebUI</RootNamespace>
+    <AssemblyName>Recapi.WebUI</AssemblyName>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>

@@ -1,22 +1,22 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Common;
+using Recapi.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
+using Recapi.Application.Common.Interfaces;
 
-namespace Northwind.Application.Products.Queries.GetProductsFile
+namespace Recapi.Application.Products.Queries.GetProductsFile
 {
     public class GetProductsFileQueryHandler : IRequestHandler<GetProductsFileQuery, ProductsFileVm>
     {
-        private readonly INorthwindDbContext _context;
+        private readonly IRecapiDbContext _context;
         private readonly ICsvFileBuilder _fileBuilder;
         private readonly IMapper _mapper;
         private readonly IDateTime _dateTime;
 
-        public GetProductsFileQueryHandler(INorthwindDbContext context, ICsvFileBuilder fileBuilder, IMapper mapper, IDateTime dateTime)
+        public GetProductsFileQueryHandler(IRecapiDbContext context, ICsvFileBuilder fileBuilder, IMapper mapper, IDateTime dateTime)
         {
             _context = context;
             _fileBuilder = fileBuilder;

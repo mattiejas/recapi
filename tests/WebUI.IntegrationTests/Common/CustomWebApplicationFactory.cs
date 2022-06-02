@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Northwind.Application.Common.Interfaces;
-using Northwind.Persistence;
+using Recapi.Application.Common.Interfaces;
+using Recapi.Persistence;
 
-namespace Northwind.WebUI.IntegrationTests.Common
+namespace Recapi.WebUI.IntegrationTests.Common
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<TStartup> where TStartup : class
     {
@@ -26,20 +26,20 @@ namespace Northwind.WebUI.IntegrationTests.Common
 
                     // Add a database context using an in-memory 
                     // database for testing.
-                    services.AddDbContext<NorthwindDbContext>(options =>
+                    services.AddDbContext<RecapiDbContext>(options =>
                     {
                         options.UseInMemoryDatabase("InMemoryDbForTesting");
                         options.UseInternalServiceProvider(serviceProvider);
                     });
 
-                    services.AddScoped<INorthwindDbContext>(provider => provider.GetService<NorthwindDbContext>());
+                    services.AddScoped<IRecapiDbContext>(provider => provider.GetService<RecapiDbContext>());
 
                     var sp = services.BuildServiceProvider();
 
                     // Create a scope to obtain a reference to the database
                     using var scope = sp.CreateScope();
                     var scopedServices = scope.ServiceProvider;
-                    var context = scopedServices.GetRequiredService<NorthwindDbContext>();
+                    var context = scopedServices.GetRequiredService<RecapiDbContext>();
                     var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
                     // Ensure the database is created.
@@ -66,7 +66,7 @@ namespace Northwind.WebUI.IntegrationTests.Common
 
         public async Task<HttpClient> GetAuthenticatedClientAsync()
         {
-            return await GetAuthenticatedClientAsync("jason@northwind", "Northwind1!");
+            return await GetAuthenticatedClientAsync("jason@Recapi", "Recapi1!");
         }
 
         public async Task<HttpClient> GetAuthenticatedClientAsync(string userName, string password)
@@ -92,10 +92,10 @@ namespace Northwind.WebUI.IntegrationTests.Common
             var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = "Northwind.IntegrationTests",
+                ClientId = "Recapi.IntegrationTests",
                 ClientSecret = "secret",
 
-                Scope = "Northwind.WebUIAPI openid profile",
+                Scope = "Recapi.WebUIAPI openid profile",
                 UserName = userName,
                 Password = password
             });

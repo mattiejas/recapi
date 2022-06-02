@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using Moq;
-using Northwind.Application.Customers.Commands.CreateCustomer;
-using System.Threading;
-using Northwind.Application.UnitTests.Common;
+using Recapi.Application.Customers.Commands.CreateCustomer;
+using Recapi.Application.UnitTests.Common;
 using Xunit;
 
-namespace Northwind.Application.UnitTests.Customers.Commands.CreateCustomer
+namespace Recapi.Application.UnitTests.Customers.Commands.CreateCustomer
 {
     public class CreateCustomerCommandTests : CommandTestBase
     {
@@ -22,7 +23,7 @@ namespace Northwind.Application.UnitTests.Customers.Commands.CreateCustomer
 
 
             // Assert
-            mediatorMock.Verify(m => m.Publish(It.Is<CustomerCreated>(cc => cc.CustomerId == newCustomerId), It.IsAny<CancellationToken>()), Times.Once);
+            mediatorMock.Verify<Task>(m => m.Publish(It.Is<CustomerCreated>(cc => cc.CustomerId == newCustomerId), It.IsAny<CancellationToken>()), Times.Once);
         }
     }
 }

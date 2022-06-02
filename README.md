@@ -1,18 +1,18 @@
-[![Build Status](https://codingflow.visualstudio.com/NorthwindTraders/_apis/build/status/NorthwindTraders%20-%20CI?branchName=master)](https://codingflow.visualstudio.com/NorthwindTraders/_build/latest?definitionId=22&branchName=master)
+[![Build Status](https://codingflow.visualstudio.com/RecapiTraders/_apis/build/status/RecapiTraders%20-%20CI?branchName=master)](https://codingflow.visualstudio.com/RecapiTraders/_build/latest?definitionId=22&branchName=master)
 
-# NorthwindTraders
+# RecapiTraders
 
-Northwind Traders is a sample application built using ASP.NET Core and Entity Framework Core. The architecture and design of the project is explained in the video:
+Recapi Traders is a sample application built using ASP.NET Core and Entity Framework Core. The architecture and design of the project is explained in the video:
 
 * [Clean Architecture with ASP.NET Core 2.1](https://youtu.be/_lwCVE_XgqI) ([slide deck](/Docs/Slides.pdf))
 
 The initial construction of this project is explained in the following blog posts:
 
-* [Code: Northwind Traders with Entity Framework Core](https://jasontaylor.dev/northwind-traders-with-entity-framework-core/)
-* [Create Northwind Traders Code First with Entity Framework Core – Part 1](https://jasontaylor.dev/create-northwind-traders-code-first-with-entity-framework-core-part-1/)
-* [Create Northwind Traders Code First with Entity Framework Core – Part 2](https://jasontaylor.dev/create-northwind-traders-code-first-with-entity-framework-core-part-2/)
+* [Code: Recapi Traders with Entity Framework Core](https://jasontaylor.dev/Recapi-traders-with-entity-framework-core/)
+* [Create Recapi Traders Code First with Entity Framework Core – Part 1](https://jasontaylor.dev/create-Recapi-traders-code-first-with-entity-framework-core-part-1/)
+* [Create Recapi Traders Code First with Entity Framework Core – Part 2](https://jasontaylor.dev/create-Recapi-traders-code-first-with-entity-framework-core-part-2/)
 
-For information on upcoming features and fixes, take a look at the [product roadmap](https://github.com/jasontaylordev/NorthwindTraders/wiki/Roadmap).
+For information on upcoming features and fixes, take a look at the [product roadmap](https://github.com/jasontaylordev/RecapiTraders/wiki/Roadmap).
 
 ## Getting Started
 Use these instructions to get the project up and running.
@@ -55,9 +55,9 @@ Follow these steps to get your development environment set up:
 * Angular 8
 
 ## Versions
-The [master](https://github.com/jasontaylordev/NorthwindTraders/tree/master) branch is running .NET Core 3. 
-The [dotnetcore22](https://github.com/jasontaylordev/NorthwindTraders/tree/dotnetcore22) branch contains an earlier version built with .NET Core 2.2. This is the version closely related to the talks on Clean Architecture with ASP.NET Core 2.1 / 2.2.
+The [master](https://github.com/jasontaylordev/RecapiTraders/tree/master) branch is running .NET Core 3. 
+The [dotnetcore22](https://github.com/jasontaylordev/RecapiTraders/tree/dotnetcore22) branch contains an earlier version built with .NET Core 2.2. This is the version closely related to the talks on Clean Architecture with ASP.NET Core 2.1 / 2.2.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/jasontaylordev/NorthwindTraders/blob/master/LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/jasontaylordev/RecapiTraders/blob/master/LICENSE.md) file for details.
