@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductsClient, ProductsListVm } from '../Recapi-traders-api';
+import { ProductsClient, ProductsListVm } from '../recapi-api';
 
 @Component({
   templateUrl: './products.component.html'

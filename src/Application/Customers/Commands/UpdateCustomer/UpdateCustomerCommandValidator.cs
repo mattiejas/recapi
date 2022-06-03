@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Validators;
+using Recapi.Application.Products.Commands.UpdateProduct;
 
 namespace Recapi.Application.Customers.Commands.UpdateCustomer
 {
@@ -29,7 +30,7 @@ namespace Recapi.Application.Customers.Commands.UpdateCustomer
                 .WithMessage("Customers in QLD require at least one QLD landline.");
         }
 
-        private static bool HaveQueenslandLandLine(UpdateCustomerCommand model, string phoneValue, PropertyValidatorContext ctx)
+        private static bool HaveQueenslandLandLine(UpdateCustomerCommand model, string phoneValue, ValidationContext<UpdateCustomerCommand> ctx)
         {
             return model.Phone.StartsWith("07") || model.Fax.StartsWith("07");
         }

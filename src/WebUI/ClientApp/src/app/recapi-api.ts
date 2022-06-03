@@ -15,6 +15,123 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
+export interface IAuthClient {
+    register(createUserCommand: CreateUserCommand): Observable<FileResponse>;
+    login(loginCommand: LoginCommand): Observable<FileResponse>;
+}
+
+@Injectable()
+export class AuthClient implements IAuthClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    register(createUserCommand: CreateUserCommand): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/Auth/Register";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(createUserCommand);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRegister(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRegister(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileResponse>;
+        }));
+    }
+
+    protected processRegister(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(null as any);
+    }
+
+    login(loginCommand: LoginCommand): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/Auth/Login";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(loginCommand);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processLogin(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processLogin(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileResponse>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileResponse>;
+        }));
+    }
+
+    protected processLogin(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: responseBlob as any, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(null as any);
+    }
+}
+
 export interface ICategoriesClient {
     getAll(): Observable<CategoriesListVm>;
     upsert(command: UpsertCategoryCommand): Observable<void>;
@@ -1020,8 +1137,88 @@ export class ProductsClient implements IProductsClient {
     }
 }
 
+export class CreateUserCommand implements ICreateUserCommand {
+    username?: string;
+    password?: string;
+
+    constructor(data?: ICreateUserCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.username = _data["username"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any): CreateUserCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateUserCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["username"] = this.username;
+        data["password"] = this.password;
+        return data;
+    }
+}
+
+export interface ICreateUserCommand {
+    username?: string;
+    password?: string;
+}
+
+export class LoginCommand implements ILoginCommand {
+    username?: string;
+    password?: string;
+
+    constructor(data?: ILoginCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.username = _data["username"];
+            this.password = _data["password"];
+        }
+    }
+
+    static fromJS(data: any): LoginCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new LoginCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["username"] = this.username;
+        data["password"] = this.password;
+        return data;
+    }
+}
+
+export interface ILoginCommand {
+    username?: string;
+    password?: string;
+}
+
 export class CategoriesListVm implements ICategoriesListVm {
-    categories?: CategoryDto[] | undefined;
+    categories?: CategoryDto[];
     count?: number;
 
     constructor(data?: ICategoriesListVm) {
@@ -1064,15 +1261,15 @@ export class CategoriesListVm implements ICategoriesListVm {
 }
 
 export interface ICategoriesListVm {
-    categories?: CategoryDto[] | undefined;
+    categories?: CategoryDto[];
     count?: number;
 }
 
 export class CategoryDto implements ICategoryDto {
     id?: number;
-    name?: string | undefined;
-    description?: string | undefined;
-    picture?: string | undefined;
+    name?: string;
+    description?: string;
+    picture?: string;
 
     constructor(data?: ICategoryDto) {
         if (data) {
@@ -1111,9 +1308,9 @@ export class CategoryDto implements ICategoryDto {
 
 export interface ICategoryDto {
     id?: number;
-    name?: string | undefined;
-    description?: string | undefined;
-    picture?: string | undefined;
+    name?: string;
+    description?: string;
+    picture?: string;
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -1186,9 +1383,9 @@ export interface IProblemDetails {
 
 export class UpsertCategoryCommand implements IUpsertCategoryCommand {
     id?: number | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-    picture?: string | undefined;
+    name?: string;
+    description?: string;
+    picture?: string;
 
     constructor(data?: IUpsertCategoryCommand) {
         if (data) {
@@ -1227,13 +1424,13 @@ export class UpsertCategoryCommand implements IUpsertCategoryCommand {
 
 export interface IUpsertCategoryCommand {
     id?: number | undefined;
-    name?: string | undefined;
-    description?: string | undefined;
-    picture?: string | undefined;
+    name?: string;
+    description?: string;
+    picture?: string;
 }
 
 export class CustomersListVm implements ICustomersListVm {
-    customers?: CustomerLookupDto[] | undefined;
+    customers?: CustomerLookupDto[];
 
     constructor(data?: ICustomersListVm) {
         if (data) {
@@ -1273,12 +1470,12 @@ export class CustomersListVm implements ICustomersListVm {
 }
 
 export interface ICustomersListVm {
-    customers?: CustomerLookupDto[] | undefined;
+    customers?: CustomerLookupDto[];
 }
 
 export class CustomerLookupDto implements ICustomerLookupDto {
-    id?: string | undefined;
-    name?: string | undefined;
+    id?: string;
+    name?: string;
 
     constructor(data?: ICustomerLookupDto) {
         if (data) {
@@ -1312,22 +1509,22 @@ export class CustomerLookupDto implements ICustomerLookupDto {
 }
 
 export interface ICustomerLookupDto {
-    id?: string | undefined;
-    name?: string | undefined;
+    id?: string;
+    name?: string;
 }
 
 export class CustomerDetailVm implements ICustomerDetailVm {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 
     constructor(data?: ICustomerDetailVm) {
         if (data) {
@@ -1379,31 +1576,31 @@ export class CustomerDetailVm implements ICustomerDetailVm {
 }
 
 export interface ICustomerDetailVm {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 }
 
 export class CreateCustomerCommand implements ICreateCustomerCommand {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 
     constructor(data?: ICreateCustomerCommand) {
         if (data) {
@@ -1455,31 +1652,31 @@ export class CreateCustomerCommand implements ICreateCustomerCommand {
 }
 
 export interface ICreateCustomerCommand {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 }
 
 export class UpdateCustomerCommand implements IUpdateCustomerCommand {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 
     constructor(data?: IUpdateCustomerCommand) {
         if (data) {
@@ -1531,24 +1728,24 @@ export class UpdateCustomerCommand implements IUpdateCustomerCommand {
 }
 
 export interface IUpdateCustomerCommand {
-    id?: string | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    companyName?: string | undefined;
-    contactName?: string | undefined;
-    contactTitle?: string | undefined;
-    country?: string | undefined;
-    fax?: string | undefined;
-    phone?: string | undefined;
-    postalCode?: string | undefined;
-    region?: string | undefined;
+    id?: string;
+    address?: string;
+    city?: string;
+    companyName?: string;
+    contactName?: string;
+    contactTitle?: string;
+    country?: string;
+    fax?: string;
+    phone?: string;
+    postalCode?: string;
+    region?: string;
 }
 
 export class EmployeeLookupDto implements IEmployeeLookupDto {
     id?: number;
-    name?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    name?: string;
+    position?: string;
+    extension?: string;
 
     constructor(data?: IEmployeeLookupDto) {
         if (data) {
@@ -1587,30 +1784,30 @@ export class EmployeeLookupDto implements IEmployeeLookupDto {
 
 export interface IEmployeeLookupDto {
     id?: number;
-    name?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    name?: string;
+    position?: string;
+    extension?: string;
 }
 
 export class EmployeeDetailVm implements IEmployeeDetailVm {
     id?: number;
-    title?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
     birthDate?: Date | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    region?: string | undefined;
-    postalCode?: string | undefined;
-    country?: string | undefined;
-    homePhone?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    address?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+    homePhone?: string;
+    position?: string;
+    extension?: string;
     hireDate?: Date | undefined;
-    notes?: string | undefined;
-    photo?: string | undefined;
+    notes?: string;
+    photo?: string;
     managerId?: number | undefined;
-    territories?: EmployeeTerritoryDto[] | undefined;
+    territories?: EmployeeTerritoryDto[];
 
     constructor(data?: IEmployeeDetailVm) {
         if (data) {
@@ -1685,29 +1882,29 @@ export class EmployeeDetailVm implements IEmployeeDetailVm {
 
 export interface IEmployeeDetailVm {
     id?: number;
-    title?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
     birthDate?: Date | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    region?: string | undefined;
-    postalCode?: string | undefined;
-    country?: string | undefined;
-    homePhone?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    address?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+    homePhone?: string;
+    position?: string;
+    extension?: string;
     hireDate?: Date | undefined;
-    notes?: string | undefined;
-    photo?: string | undefined;
+    notes?: string;
+    photo?: string;
     managerId?: number | undefined;
-    territories?: EmployeeTerritoryDto[] | undefined;
+    territories?: EmployeeTerritoryDto[];
 }
 
 export class EmployeeTerritoryDto implements IEmployeeTerritoryDto {
-    territoryId?: string | undefined;
-    territory?: string | undefined;
-    region?: string | undefined;
+    territoryId?: string;
+    territory?: string;
+    region?: string;
 
     constructor(data?: IEmployeeTerritoryDto) {
         if (data) {
@@ -1743,28 +1940,28 @@ export class EmployeeTerritoryDto implements IEmployeeTerritoryDto {
 }
 
 export interface IEmployeeTerritoryDto {
-    territoryId?: string | undefined;
-    territory?: string | undefined;
-    region?: string | undefined;
+    territoryId?: string;
+    territory?: string;
+    region?: string;
 }
 
 export class UpsertEmployeeCommand implements IUpsertEmployeeCommand {
     id?: number | undefined;
-    title?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
     birthDate?: Date | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    region?: string | undefined;
-    postalCode?: string | undefined;
-    country?: string | undefined;
-    homePhone?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    address?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+    homePhone?: string;
+    position?: string;
+    extension?: string;
     hireDate?: Date | undefined;
-    notes?: string | undefined;
-    photo?: string | undefined;
+    notes?: string;
+    photo?: string;
     managerId?: number | undefined;
 
     constructor(data?: IUpsertEmployeeCommand) {
@@ -1830,26 +2027,26 @@ export class UpsertEmployeeCommand implements IUpsertEmployeeCommand {
 
 export interface IUpsertEmployeeCommand {
     id?: number | undefined;
-    title?: string | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
+    title?: string;
+    firstName?: string;
+    lastName?: string;
     birthDate?: Date | undefined;
-    address?: string | undefined;
-    city?: string | undefined;
-    region?: string | undefined;
-    postalCode?: string | undefined;
-    country?: string | undefined;
-    homePhone?: string | undefined;
-    position?: string | undefined;
-    extension?: string | undefined;
+    address?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+    homePhone?: string;
+    position?: string;
+    extension?: string;
     hireDate?: Date | undefined;
-    notes?: string | undefined;
-    photo?: string | undefined;
+    notes?: string;
+    photo?: string;
     managerId?: number | undefined;
 }
 
 export class ProductsListVm implements IProductsListVm {
-    products?: ProductDto[] | undefined;
+    products?: ProductDto[];
     createEnabled?: boolean;
 
     constructor(data?: IProductsListVm) {
@@ -1892,18 +2089,18 @@ export class ProductsListVm implements IProductsListVm {
 }
 
 export interface IProductsListVm {
-    products?: ProductDto[] | undefined;
+    products?: ProductDto[];
     createEnabled?: boolean;
 }
 
 export class ProductDto implements IProductDto {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
-    supplierCompanyName?: string | undefined;
+    supplierCompanyName?: string;
     categoryId?: number | undefined;
-    categoryName?: string | undefined;
+    categoryName?: string;
     discontinued?: boolean;
 
     constructor(data?: IProductDto) {
@@ -1951,23 +2148,23 @@ export class ProductDto implements IProductDto {
 
 export interface IProductDto {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
-    supplierCompanyName?: string | undefined;
+    supplierCompanyName?: string;
     categoryId?: number | undefined;
-    categoryName?: string | undefined;
+    categoryName?: string;
     discontinued?: boolean;
 }
 
 export class ProductDetailVm implements IProductDetailVm {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
-    supplierCompanyName?: string | undefined;
+    supplierCompanyName?: string;
     categoryId?: number | undefined;
-    categoryName?: string | undefined;
+    categoryName?: string;
     discontinued?: boolean;
     editEnabled?: boolean;
     deleteEnabled?: boolean;
@@ -2021,19 +2218,19 @@ export class ProductDetailVm implements IProductDetailVm {
 
 export interface IProductDetailVm {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
-    supplierCompanyName?: string | undefined;
+    supplierCompanyName?: string;
     categoryId?: number | undefined;
-    categoryName?: string | undefined;
+    categoryName?: string;
     discontinued?: boolean;
     editEnabled?: boolean;
     deleteEnabled?: boolean;
 }
 
 export class CreateProductCommand implements ICreateProductCommand {
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
     categoryId?: number | undefined;
@@ -2077,7 +2274,7 @@ export class CreateProductCommand implements ICreateProductCommand {
 }
 
 export interface ICreateProductCommand {
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
     categoryId?: number | undefined;
@@ -2086,7 +2283,7 @@ export interface ICreateProductCommand {
 
 export class UpdateProductCommand implements IUpdateProductCommand {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
     categoryId?: number | undefined;
@@ -2133,7 +2330,7 @@ export class UpdateProductCommand implements IUpdateProductCommand {
 
 export interface IUpdateProductCommand {
     productId?: number;
-    productName?: string | undefined;
+    productName?: string;
     unitPrice?: number | undefined;
     supplierId?: number | undefined;
     categoryId?: number | undefined;

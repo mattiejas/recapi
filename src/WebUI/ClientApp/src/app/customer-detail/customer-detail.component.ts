@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CustomerDetailVm } from '../Recapi-traders-api';
+import { CustomerDetailVm } from '../recapi-api';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({

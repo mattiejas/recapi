@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomersClient, CustomersListVm } from '../Recapi-traders-api';
+import { CustomersClient, CustomersListVm } from '../recapi-api';
 import { CustomerDetailComponent } from '../customer-detail/customer-detail.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 

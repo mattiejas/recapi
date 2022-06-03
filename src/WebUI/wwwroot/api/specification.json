@@ -2,10 +2,76 @@
   "x-generator": "NSwag v13.16.1.0 (NJsonSchema v10.7.2.0 (Newtonsoft.Json v13.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "Recapi Traders API",
+    "title": "Recapi API",
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Auth/Register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_Register",
+        "requestBody": {
+          "x-name": "createUserCommand",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_Login",
+        "requestBody": {
+          "x-name": "loginCommand",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Categories/GetAll": {
       "get": {
         "tags": [
@@ -578,13 +644,36 @@
   },
   "components": {
     "schemas": {
+      "CreateUserCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
       "CategoriesListVm": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "categories": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/CategoryDto"
             }
@@ -604,17 +693,14 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "picture": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           }
         }
       },
@@ -661,17 +747,14 @@
             "nullable": true
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "description": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "picture": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           }
         }
       },
@@ -681,7 +764,6 @@
         "properties": {
           "customers": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/CustomerLookupDto"
             }
@@ -693,12 +775,10 @@
         "additionalProperties": false,
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -707,48 +787,37 @@
         "additionalProperties": false,
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "companyName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactTitle": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "fax": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "postalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -757,48 +826,37 @@
         "additionalProperties": false,
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "companyName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactTitle": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "fax": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "postalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -807,48 +865,37 @@
         "additionalProperties": false,
         "properties": {
           "id": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "companyName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "contactTitle": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "fax": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "phone": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "postalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -861,16 +908,13 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "position": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "extension": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -883,16 +927,13 @@
             "format": "int32"
           },
           "title": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "birthDate": {
             "type": "string",
@@ -900,36 +941,28 @@
             "nullable": true
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "postalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "homePhone": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "position": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "extension": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "hireDate": {
             "type": "string",
@@ -937,13 +970,11 @@
             "nullable": true
           },
           "notes": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "photo": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           },
           "managerId": {
             "type": "integer",
@@ -952,7 +983,6 @@
           },
           "territories": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/EmployeeTerritoryDto"
             }
@@ -964,16 +994,13 @@
         "additionalProperties": false,
         "properties": {
           "territoryId": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "territory": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         }
       },
@@ -987,16 +1014,13 @@
             "nullable": true
           },
           "title": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "birthDate": {
             "type": "string",
@@ -1004,36 +1028,28 @@
             "nullable": true
           },
           "address": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "region": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "postalCode": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "homePhone": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "position": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "extension": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "hireDate": {
             "type": "string",
@@ -1041,13 +1057,11 @@
             "nullable": true
           },
           "notes": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "photo": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           },
           "managerId": {
             "type": "integer",
@@ -1062,7 +1076,6 @@
         "properties": {
           "products": {
             "type": "array",
-            "nullable": true,
             "items": {
               "$ref": "#/components/schemas/ProductDto"
             }
@@ -1081,8 +1094,7 @@
             "format": "int32"
           },
           "productName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "unitPrice": {
             "type": "number",
@@ -1095,8 +1107,7 @@
             "nullable": true
           },
           "supplierCompanyName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "categoryId": {
             "type": "integer",
@@ -1104,8 +1115,7 @@
             "nullable": true
           },
           "categoryName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "discontinued": {
             "type": "boolean"
@@ -1121,8 +1131,7 @@
             "format": "int32"
           },
           "productName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "unitPrice": {
             "type": "number",
@@ -1135,8 +1144,7 @@
             "nullable": true
           },
           "supplierCompanyName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "categoryId": {
             "type": "integer",
@@ -1144,8 +1152,7 @@
             "nullable": true
           },
           "categoryName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "discontinued": {
             "type": "boolean"
@@ -1163,8 +1170,7 @@
         "additionalProperties": false,
         "properties": {
           "productName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "unitPrice": {
             "type": "number",
@@ -1195,8 +1201,7 @@
             "format": "int32"
           },
           "productName": {
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "unitPrice": {
             "type": "number",

@@ -62,7 +62,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "src/app/Recapi-traders-api.ts"
+      "output": "src/app/recapi-api.ts"
     }
   }
 }
