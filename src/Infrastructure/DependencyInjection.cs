@@ -1,14 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text;
 using Duende.IdentityServer.Models;
 using Duende.IdentityServer.Test;
 using IdentityModel;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Recapi.Application.Common.Interfaces;
 using Recapi.Common;
 using Recapi.Infrastructure.Files;
@@ -18,7 +23,8 @@ namespace Recapi.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+            IConfiguration configuration, IWebHostEnvironment environment)
         {
             services.AddScoped<IUserManager, UserManagerService>();
             services.AddTransient<INotificationService, NotificationService>();
@@ -39,9 +45,9 @@ namespace Recapi.Infrastructure
                         options.Clients.Add(new Client
                         {
                             ClientId = "Recapi.IntegrationTests",
-                            AllowedGrantTypes = { GrantType.ResourceOwnerPassword },
-                            ClientSecrets = { new Secret("secret".Sha256()) },
-                            AllowedScopes = { "Recapi.WebUIAPI", "openid", "profile" }
+                            AllowedGrantTypes = {GrantType.ResourceOwnerPassword},
+                            ClientSecrets = {new Secret("secret".Sha256())},
+                            AllowedScopes = {"Recapi.WebUIAPI", "openid", "profile"}
                         });
                     }).AddTestUsers(new List<TestUser>
                     {
@@ -65,6 +71,23 @@ namespace Recapi.Infrastructure
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.Configure<JwtBearerOptions>(
+                IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
+                options =>
+                {
+                    var key = configuration["Jwt:Secret"];
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        ValidateAudience = false,
+                        ValidateIssuer = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+                    };
+                });
 
             return services;
         }

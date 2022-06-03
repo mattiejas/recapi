@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recapi.Application.Users.Commands.CreateUser;
 using Recapi.Application.Users.Commands.LoginCommand;
@@ -26,6 +28,13 @@ namespace Recapi.WebUI.Controllers
             }
 
             return Ok(new { token });
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public IActionResult CurrentUser()
+        {
+            return Ok(User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
     }
 }

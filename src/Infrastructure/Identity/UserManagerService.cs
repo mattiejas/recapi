@@ -75,10 +75,14 @@ namespace Recapi.Infrastructure.Identity
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId)
+                    new Claim(ClaimTypes.NameIdentifier, userId),
+                    new Claim(JwtRegisteredClaimNames.Aud, _configuration["Jwt:Audience"]),
+                    new Claim(JwtRegisteredClaimNames.Iss, _configuration["Jwt:Issuer"])
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"]
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);

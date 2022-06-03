@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 using Recapi.Application;
 using Recapi.Application.Common.Interfaces;
 using Recapi.Infrastructure;
@@ -64,7 +67,14 @@ namespace Recapi.WebUI
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "Recapi API";
+                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("Bearer"));
+                configure.AddSecurity("Bearer", new OpenApiSecurityScheme()
+                {
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Bearer {your JWT token}"
+                });
             });
 
             _services = services;
@@ -97,7 +107,7 @@ namespace Recapi.WebUI
             app.UseSwaggerUi3(settings =>
             {
                 settings.Path = "/api";
-                settings.DocumentPath = "/api/specification.json";
+                // settings.DocumentPath = "/api/specification.json";
             });
 
             app.UseRouting();

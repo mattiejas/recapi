@@ -72,6 +72,27 @@
         }
       }
     },
+    "/api/Auth/CurrentUser": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_CurrentUser",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Categories/GetAll": {
       "get": {
         "tags": [
