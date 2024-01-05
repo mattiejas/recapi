@@ -10,6 +10,8 @@ pub enum AppError {
     AnyhowError(anyhow::Error),
 }
 
+pub type AppResult<T> = Result<T, AppError>;
+
 impl IntoResponse for AppError {
     fn into_response(self) -> Response {
         #[derive(serde::Serialize)]

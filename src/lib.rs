@@ -4,7 +4,7 @@ pub mod routes;
 pub mod error;
 
 use std::env;
-use diesel::{Connection, PgConnection};
+use diesel::{PgConnection};
 use diesel::r2d2::{ConnectionManager, Pool};
 use dotenvy::dotenv;
 use anyhow::Result;
