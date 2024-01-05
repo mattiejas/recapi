@@ -1,0 +1,16 @@
+[package]
+name = "recapi"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.3", features = ["macros"] }
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.12.0", features = ["full"] }
+tower-http = "0.5.0"
+tracing-subscriber = "0.3.18"
+log = "0.4.20"
+diesel = { version = "2.1.4", features = ["postgres", "libsqlite3-sys", "r2d2"] }
+dotenvy = "0.15.7"
+anyhow = "1.0.79"
+serde_json = "1.0.111"

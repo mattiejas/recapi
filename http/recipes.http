@@ -1,0 +1,13 @@
+POST http://localhost:3000/recipes
+Content-Type: application/json
+
+{
+  "name": "Pasta",
+  "description": "Boil water, add pasta, add sauce, eat."
+}
+
+###
+
+GET http://localhost:3000/recipes
+
+###
